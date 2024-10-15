@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-import { getPost } from "@/server/post";
+import { get } from "@/lib/fetcher";
 import { Post } from "@/lib/types";
 import { PostDetailCard } from "@/components/post-detail-card";
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const post: Post = await getPost(params.id);
+  const post: Post = await get(params.id, "posts");
 
   if (post.error) {
     return {
@@ -23,7 +23,7 @@ export default async function PostDetailPage({
 }: {
   params: { id: string };
 }) {
-  const post: Post = await getPost(params.id);
+  const post: Post = await get(params.id, "posts");
   if (post.error) {
     return (
       <div className="flex h-screen flex-col items-center justify-center">

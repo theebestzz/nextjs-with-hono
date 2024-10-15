@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { PostCard } from "@/components/post-card";
 import { Post } from "@/lib/types";
-import { getPosts } from "@/server/post";
+import { getAll } from "@/lib/fetcher";
 import { Metadata } from "next";
 import { ReturnBackButton } from "@/components/return-back-button";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function PostsPage() {
-  const posts = await getPosts();
+  const posts = await getAll("posts");
 
   if (posts === null) {
     return (
